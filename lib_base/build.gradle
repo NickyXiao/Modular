@@ -34,4 +34,7 @@ dependencies {
 
     api project(":lib_database")
     api project(':lib_events_bus')
+
+    //路由总线库
+
 }

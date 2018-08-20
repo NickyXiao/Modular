@@ -1,18 +1,12 @@
-apply plugin: 'com.android.library'
+apply from: "${rootProject.rootDir}/common_config.gradle"
+
+//进行Application类型项目的编译环境配置
+project.ext.setLibDefaultConfig project
 
 android {
-    compileSdkVersion 26
-
-
-
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -25,16 +19,11 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'com.android.support:appcompat-v7:26.0.0-beta1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:0.5'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
-
     api project(":lib_database")
     api project(':lib_events_bus')
 
     //路由总线库
-
+    api 'com.alibaba:arouter-api:1.4.0'
+    //ViewModel  LiveData
+    api "android.arch.lifecycle:extensions:1.1.1"
 }

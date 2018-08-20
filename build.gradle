@@ -8,10 +8,10 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath "com.alibaba:arouter-register:1.0.2"
     }
 }
 
@@ -25,3 +25,33 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+project.ext {
+    isDevelop = false
+
+    compileSdkVersion = 26
+    minSdkVersion = 16
+    targetSdkVersion =  26
+
+    //JUnit
+    junitVersion = '4.12'
+    //test
+    testRunnerVersion = '1.0.2'
+    espressoVersion = '3.0.2'
+
+    //兼容包
+    appcompatSupportVersion = '27.1.1'
+    //ConstraintLayout
+    constraintLayoutVersion = '1.0.2'
+
+    //Arouter
+    arouterArouterVersion = '1.4.0'
+    arouterCompilerVersion = '1.2.1'
+    //LiveData ViewModel
+    archLifecycleVersion = '1.1.1'
+    //retrofit
+    retrofitVersion = '2.4.0'
+    retrofitConverterGsonVersion = '2.4.0'
+}
+//
+println(""+project.ext.compileSdkVersion)

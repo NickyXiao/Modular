@@ -1,0 +1,71 @@
+
+/**
+ * Application编译环境
+ */
+project.ext.setAppDefaultConfig = {
+    extension ->
+        extension.apply plugin: "com.android.application"
+        extension.description "app"
+        setAndroidConfig extension.android
+        setDependencies extension.dependencies
+}
+
+/**
+ * Library编译环境
+ */
+project.ext.setLibDefaultConfig = {
+    extension ->
+        if (rootProject.isDevelop){
+            extension.apply plugin: "com.android.application"
+        }else{
+            extension.apply plugin: "com.android.library"
+        }
+
+        extension.description "lib"
+        setAndroidConfig extension.android
+        setDependencies extension.dependencies
+}
+
+/**
+ * Android编译环境配置
+ */
+project.ext.setAndroidConfig = {
+    extension ->
+        extension.compileSdkVersion rootProject.compileSdkVersion
+//        extension.buildToolsVersion ""
+        extension.defaultConfig {
+            minSdkVersion rootProject.minSdkVersion
+            targetSdkVersion rootProject.targetSdkVersion
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+            javaCompileOptions {
+                annotationProcessorOptions {
+                    arguments = [ AROUTER_MODULE_NAME : extension.project.getName() ]
+                }
+            }
+        }
+}
+
+/**
+ * 共同依赖抽离
+ */
+project.ext.setDependencies = {
+    extension ->
+        extension.implementation fileTree(dir: "libs", includes: ['*.jar'])
+
+        //兼容包
+        extension.implementation "com.android.support:support-v4:${rootProject.appcompatSupportVersion}"
+        extension.implementation "com.android.support:appcompat-v7:${rootProject.appcompatSupportVersion}"
+        //test
+        extension.testImplementation "junit:junit:${rootProject.junitVersion}"
+        extension.androidTestImplementation "com.android.support.test:runner:${rootProject.testRunnerVersion}"
+        extension.androidTestImplementation "com.android.support.test.espresso:espresso-core:${rootProject.espressoVersion}"
+
+        //ConstraintLayout
+        extension.implementation "com.android.support.constraint:constraint-layout:${rootProject.constraintLayoutVersion}"
+
+//        //aRouterCompiler
+//        extension.annotationProcessor "com.alibaba:arouter-compiler:${rootProject.arouterCompilerVersion}"
+        //路由总线库
+//        extension.implementation 'com.alibaba:arouter-api:1.4.0'
+}

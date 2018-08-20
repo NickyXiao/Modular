@@ -1,1 +1,9 @@
-include ':app', ':lib_database', ':lib_base', ':module_activities', ':module_order', ':module_login', ':module_account', ':lib_events_bus'
+include ':app',
+        ':lib_database',
+        ':lib_base',
+        ':module_activities',
+        ':module_order',
+        ':module_login',
+        ':module_account',
+        ':lib_events_bus',
+        ':lib_network'
